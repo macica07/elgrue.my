@@ -24,7 +24,6 @@ infobox:
   <small>— The reason why <b>she</b>'s here.</small>
 </div>
 
----
 ## About
 
 My sister... Is my sister! She's always been with me, and I am really glad she has.
