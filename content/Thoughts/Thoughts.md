@@ -1,0 +1,1 @@
+Here will be some of my thoughts in a form similar to a diary, or a binnacle, marked by date. Sometimes not!
