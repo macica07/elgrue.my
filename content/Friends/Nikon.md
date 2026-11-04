@@ -10,7 +10,6 @@ infobox:
 	fields:
 		- Moth: Man
 		- Known for: Making fish cars in CRDG.
-
 ---
 
 Nikon is a moth!
