@@ -1,0 +1,35 @@
+{
+  "name": "grue-infobox",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./components": "./dist/components.js"
+  },
+  "quartz": {
+    "name": "grue-infobox",
+    "displayName": "Grue Infobox",
+    "description": "Render Omni Infobox YAML inside Quartz articles",
+    "version": "0.2.0",
+    "category": "component",
+    "components": {
+      "GrueInfobox": {
+        "name": "GrueInfobox",
+        "displayName": "Grue Infobox",
+        "description": "Wikipedia-style infobox that moves inside the article and wraps text",
+        "version": "0.2.0",
+        "defaultPosition": "beforeBody",
+        "defaultPriority": 25
+      }
+    },
+    "quartzVersion": ">=5.0.0"
+  },
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "peerDependencies": {
+    "preact": "^10.0.0"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "version": "1.0.0",
+  "plugins": {
+    "grue-infobox": {
+      "source": "./plugins/grue-infobox",
+      "resolved": "C:\\Users\\USER\\Documents\\GitHub\\elgrue.my\\plugins\\grue-infobox",
+      "commit": "local",
+      "installedAt": "2026-11-04T10:34:18.600Z"
+    }
+  }
+}
