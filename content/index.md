@@ -1,16 +1,15 @@
 # Welcome!
 
-Welcome to my personal encyclopedia, a space dedicated to documenting my thoughts, interests, projects, and ideas.
+Hello! If you're seeing this, you might already know me. But if not, I'm Grue! You can call me that, or Macica07. Anything is fine! I am a relatively normal person, with some interest in sciences like physics, astronomy, and maths.
 
-## Navigation
+I can't really find anything else to say about me... Hah!
 
-- [[About Me]]
+In this site you'll find many things that go around my head. From projects I am working on, and my thought process behind those said projects! Perhaps you'll also find things about me that you might not know yet! Or maybe just stuff I am thinking about, and just really want a place to *yap* about it!
+
+## Pages you might like to check out!
+
+These are some of the principal pages you might like to see! They contain stuff that might seem interesting! Or not. Who knows! I get it that knowing how some person decided to make his sandwich last night isn't quite interesting! (I don't have that page yet, but maybe I'll add it. Someday...)
+
 - [[Thoughts]]
 - [[Projects]]
 - [[Friends]]
-
-## About this website
-
-This website is an evolving collection of knowledge and personal reflections. Articles may be expanded, revised, or updated over time.
-
-## Test
