@@ -20,3 +20,9 @@ These are some of the principal pages you might like to see! They contain stuff 
 - [[Thoughts]]
 - [[Projects]]
 - [[Friends]]
+
+## Notes
+
+> [!Info] Inspiration
+> You might already have noticed that this site is really similar to a site I might be referencing often. Which is [The CRDG Wiki](crdg.xyz). That similarness is mainly because both sites use [Obsidian](https://obsidian.md), and some other tools that hape make websites easy and, in my opinion, *really pretty*! Huge thanks to The CRDG Wiki for the inspiration.
+
