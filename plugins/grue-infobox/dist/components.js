@@ -217,6 +217,22 @@ const boxCss = `
   box-sizing: border-box !important;
 }
 
+article .grue-divider {
+  display: flow-root !important;
+  clear: none !important;
+  box-sizing: border-box;
+
+  width: auto !important;
+  max-width: none;
+  height: 0;
+  margin: 1.35rem 14px;
+  padding: 0;
+
+  border: 0;
+  border-top: 2px solid var(--lightgray);
+  opacity: 0.75;
+}
+
 `
 
 // IMPORTANT: in Quartz 5 "beforeBody" is inside .page-header, not inside the
