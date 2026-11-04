@@ -9,7 +9,7 @@ infobox:
   images:
     - label: ""
       image: Assets/Captura de pantalla 2026-08-09 160642.png
-      caption: My sister taking a selfie with a [Martian](https://crdg.xyz/features/martians)
+      caption: My sister taking a selfie with a Martian
   subtitle: She's the mastermind, and I am her accomplice. Or so she says.
 ---
 
