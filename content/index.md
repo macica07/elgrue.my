@@ -1,3 +1,10 @@
+
+---
+title: Home
+description: Welcome to my personal encyclopedia.
+---
+
+
 # Welcome!
 
 Hello! If you're seeing this, you might already know me. But if not, I'm Grue! You can call me that, or Macica07. Anything is fine! I am a relatively normal person, with some interest in sciences like physics, astronomy, and maths.
