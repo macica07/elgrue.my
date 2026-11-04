@@ -30,7 +30,7 @@ infobox:
 
 Nikon, or as I like to call him, Moth man, is one of my very best friends! I've met him for almost two years know (I know, it's not quite a lot), and I already consider him one of my very best friends! We still play, and talk about anything from time to time.
 
-![[Captura de pantalla 2026-02-01 154037.png|500]]
+![[Captura de pantalla 2026-02-01 154037.png|400]]
 *Moth man and I celebrating our plentiful honey stock*
 ## History
 
