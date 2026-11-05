@@ -23,6 +23,7 @@ infobox:
 </div>
 <div style="text-align:right;margin-top:.25em;">
   <small>— TsuruTuneadorumrum.</small>
+
 </div>
 
 <div class="grue-divider"></div>
