@@ -3,9 +3,15 @@ infobox:
   title: El_sinnombre12B
   fields:
     - section: Info
-    - "Aliases:": '"Elsin", "EKMA65", "German 807", "Odio El Chocolate"'
+    - "Aliases:": |-
+        - "Elsin" 
+        - "EKMA65" 
+        - "German 807" 
+        - "Odio El Chocolate
     - Favorite Capital Sin: Gluttony
-    - Dislikes: "[[TsuruTuneadorumrum]]'s farts, Eating his veggies."
+    - Dislikes: |-
+        [[TsuruTuneadorumrum]]'s farts,
+        Eating his veggies.
   images:
     - label: ""
       image: Assets/Captura de pantalla 2025-11-20 162524.png
