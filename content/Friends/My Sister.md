@@ -26,7 +26,7 @@ infobox:
 
 <div class="grue-divider"></div>
 
-## About
+## Introduction
 
 My sister... Is my sister! She's always been with me, and I am really glad she has.
 I would say that she is the most influential person regarding several of my ideas and decisions about what to do with my [[Projects]].

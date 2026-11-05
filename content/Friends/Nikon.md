@@ -26,7 +26,7 @@ infobox:
 
 <div class="grue-divider"></div>
 
-## About
+## Introduction
 
 Nikon, or as I like to call him, Moth man, is one of my very best friends! I've met him for almost two years know (I know, it's not quite a lot), and I already consider him one of my very best friends! We still play, and talk about anything from time to time.
 
