@@ -58,7 +58,9 @@ On the 2025 [Black Friday](https://en.wikipedia.org/wiki/Black_Friday_(shopping)
 It didn't take long for people to start creating incredible programs in the Commodiesel.
 And one day, I found what seemed to be impossible at the time. In a public server, someone had been playing a [Markiplier](https://en.wikipedia.org/wiki/Markiplier) video on the Commodiesel. I was completely astonished! It was incredible! A computer that had tons of limitations, and was seemingly impossibl to run a video on, had one running! I couldn't sleep that night, and talked about it with [[My Sister]], who told me to try to make it.
 
-<div class="grue-divider"></div>
+
+---
+
 # First Versions
 
 ## First steps towards the Image Encoding.
@@ -83,7 +85,8 @@ You can also notice how it *generated little squares* to make the full image. Fo
 
 Alas, poor macica... I gave up for a while a bit after trying to create the first versions of the encoder. I was just starting out, and I didn't reallly think I would make it work.
 
-<div class="grue-divider"></div>
+
+---
 
 # The pursuit of the Image Encoding
 
@@ -195,7 +198,9 @@ Where $W$ is the width of the image and the coordinates start at zero.
 But, wait a second. We are supposed to make a video encoder, aren't we?
 Well, that's what the next part is about!
 
-<div class="grue-divider"></div>
+
+---
+
 # Commodiesel Video Encoder - First Generation
 
 The first ever video encoder that I made was this one. And I'm really proud of it! It's been a project that has tought me a lot about both Python and Lua! Anyways, let's get into it!
