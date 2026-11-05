@@ -7,7 +7,7 @@ infobox:
         - "Elsin" 
         - "EKMA65" 
         - "German 807" 
-        - "Odio El Chocolate
+        - "Me Gustan Góticas"
     - Favorite Capital Sin: Gluttony
     - Dislikes: |-
         [[TsuruTuneadorumrum]]'s farts,
