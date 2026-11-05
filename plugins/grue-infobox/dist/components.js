@@ -248,6 +248,44 @@ function mountGrueInfobox() {
 }
 document.addEventListener('nav', mountGrueInfobox);
 document.addEventListener('render', mountGrueInfobox);
+(function initGrueAmbientPointer() {
+  if (window.__grueAmbientPointerInstalled) return;
+  window.__grueAmbientPointerInstalled = true;
+
+  const root = document.documentElement;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const finePointer = window.matchMedia('(pointer: fine)');
+  let lastX = 0;
+  let lastY = 0;
+  let scheduled = false;
+
+  function resetPointer() {
+    root.style.setProperty('--grue-shift-x', '0px');
+    root.style.setProperty('--grue-shift-y', '0px');
+  }
+
+  function paint() {
+    scheduled = false;
+    root.style.setProperty('--grue-shift-x', lastX.toFixed(1) + 'px');
+    root.style.setProperty('--grue-shift-y', lastY.toFixed(1) + 'px');
+  }
+
+  window.addEventListener('pointermove', function(event) {
+    if (reduced.matches || !finePointer.matches) return;
+    // Range limited to +/-16px for a barely noticeable parallax.
+    lastX = ((event.clientX / window.innerWidth) - 0.5) * 32;
+    lastY = ((event.clientY / window.innerHeight) - 0.5) * 32;
+    if (!scheduled) {
+      scheduled = true;
+      window.requestAnimationFrame(paint);
+    }
+  }, { passive: true });
+
+  window.addEventListener('blur', resetPointer);
+  reduced.addEventListener('change', resetPointer);
+  finePointer.addEventListener('change', resetPointer);
+})();
+
 `
 
 const txt = (v) => (v === null || v === undefined ? "" : String(v))
