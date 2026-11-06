@@ -10,7 +10,7 @@ infobox:
         - "Me Gustan Góticas"
     - Favorite Capital Sin: Gluttony
     - Dislikes: |-
-        [[TsuruTuneadorumrum]]'s farts,
+        [[TsuruTuneadorumrum]]'s farts.
         Eating his veggies.
   images:
     - label: ""

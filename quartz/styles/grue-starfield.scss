@@ -1,0 +1,473 @@
+/*
+ * Grue.my — Starfield adaptation for Quartz 5
+ * Based on "Starfield" 1.0.3 by Nick Milo (MIT-licensed), user-supplied theme.css.
+ * This is an adaptation, not the original Obsidian theme and not a port of its graph.
+ * Disable the Grue Minimal import when testing this theme.
+ */
+
+:root[saved-theme="dark"] {
+  color-scheme: dark;
+  --sf-void: #06070f;
+  --sf-deep: #0b0a18;
+  --sf-panel: #0e0c1d;
+  --sf-line: #231f3d;
+  --sf-line-soft: #18152b;
+  --sf-ink: #e4e2f5;
+  --sf-muted: #a59fc4;
+  --sf-faint: #6d6890;
+  --sf-pink: #ff8fc0;
+  --sf-blush: #ffd9ea;
+  --sf-gold: #ffcf5a;
+  --sf-purple: #c9a2ff;
+  --sf-blue: #6fbcff;
+  --sf-green: #6fe08f;
+
+  /* Quartz color tokens; let existing components inherit this palette. */
+  --light: var(--sf-void);
+  --lightgray: var(--sf-line);
+  --gray: var(--sf-faint);
+  --darkgray: var(--sf-muted);
+  --dark: var(--sf-ink);
+  --secondary: var(--sf-pink);
+  --tertiary: var(--sf-purple);
+  --highlight: rgba(255, 143, 192, .12);
+  --textHighlight: rgba(255, 207, 90, .22);
+}
+
+/* Starfield sky: two faint nebulae and sparse, static stars. */
+:root[saved-theme="dark"] body {
+  background: var(--sf-void);
+}
+:root[saved-theme="dark"] .page {
+  background-color: var(--sf-void);
+  background-image:
+    radial-gradient(620px 420px at 105% -5%, rgba(255, 122, 182, .14), transparent 70%),
+    radial-gradient(520px 400px at -8% 102%, rgba(255, 170, 80, .08), transparent 70%),
+    radial-gradient(1px 1px at 9% 22%, rgba(255, 240, 220, .6), transparent),
+    radial-gradient(1px 1px at 88% 56%, rgba(255, 240, 220, .5), transparent),
+    radial-gradient(1.5px 1.5px at 38% 76%, rgba(185, 166, 255, .6), transparent),
+    radial-gradient(1px 1px at 93% 86%, rgba(255, 240, 220, .4), transparent),
+    radial-gradient(1px 1px at 64% 12%, rgba(143, 195, 255, .5), transparent);
+  min-height: 100vh;
+}
+
+/* Do NOT alter Quartz grid, sticky behavior or infobox float positioning. */
+:root[saved-theme="dark"] .page .sidebar.left,
+:root[saved-theme="dark"] .page .sidebar.right {
+  background-color: rgba(11, 10, 24, .62);
+}
+@media (min-width: 1200px) {
+  :root[saved-theme="dark"] .page .sidebar.left { border-right: 1px solid var(--sf-line); }
+  :root[saved-theme="dark"] .page .sidebar.right { border-left: 1px solid var(--sf-line); }
+}
+
+/* Sidebar controls and widget surfaces. */
+:root[saved-theme="dark"] .search button,
+:root[saved-theme="dark"] .search .search-button,
+:root[saved-theme="dark"] .search input,
+:root[saved-theme="dark"] .sidebar.left .explorer,
+:root[saved-theme="dark"] .sidebar.right .graph,
+:root[saved-theme="dark"] .sidebar.right .toc,
+:root[saved-theme="dark"] .sidebar.right .backlinks {
+  background-color: rgba(14, 12, 29, .75);
+  border-color: var(--sf-line);
+  border-radius: 10px;
+}
+:root[saved-theme="dark"] .sidebar.left .explorer a {
+  border-radius: 6px;
+  transition: background-color .16s ease, color .16s ease;
+}
+:root[saved-theme="dark"] .sidebar.left .explorer a:hover {
+  background: rgba(228,226,245,.07);
+}
+
+/* Starfield signature: each heading catches light at both edges. */
+:root[saved-theme="dark"] .page .center article h1,
+:root[saved-theme="dark"] .page .center article h2,
+:root[saved-theme="dark"] .page .center article h3,
+:root[saved-theme="dark"] .page .center article h4,
+:root[saved-theme="dark"] .page .center article h5,
+:root[saved-theme="dark"] .page .center .article-title {
+  --sf-hg: var(--sf-gold);
+  --sf-hb: #fbf6ee;
+  color: var(--sf-hb);
+  background-image:
+    radial-gradient(2.3em 1.25em at 0 0, var(--sf-hg), transparent 80%),
+    radial-gradient(2.3em 1.25em at 100% 78%, color-mix(in srgb, var(--sf-hg) 67%, transparent), transparent 80%),
+    linear-gradient(var(--sf-hb), var(--sf-hb));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 7px color-mix(in srgb, var(--sf-hg) 18%, transparent));
+}
+:root[saved-theme="dark"] .page .center article h2 { --sf-hg: var(--sf-purple); --sf-hb: #f6f3fd; }
+:root[saved-theme="dark"] .page .center article h3 { --sf-hg: var(--sf-blue); --sf-hb: #f3f8fd; }
+:root[saved-theme="dark"] .page .center article h4 { --sf-hg: var(--sf-green); --sf-hb: #f2fbf6; }
+:root[saved-theme="dark"] .page .center article h5 { --sf-hg: var(--sf-pink); --sf-hb: #fbf3f7; }
+:root[saved-theme="dark"] .page .center article h6 { letter-spacing: .12em; text-transform: uppercase; font-family: monospace; font-size: .8em; }
+
+/* Links, quotes, and code inspired by the original palette. */
+:root[saved-theme="dark"] .page .center article a:not(.tag-link) { transition: color .18s ease; }
+:root[saved-theme="dark"] .page .center article a:hover { color: var(--sf-blush); }
+:root[saved-theme="dark"] .page .center article blockquote:not(.callout) {
+  background: rgba(255,122,182,.055);
+  border-left-color: var(--sf-pink);
+  border-radius: 0 8px 8px 0;
+}
+:root[saved-theme="dark"] .page .center article pre,
+:root[saved-theme="dark"] .page .center article :not(pre) > code {
+  background-color: var(--sf-panel);
+  border-radius: 6px;
+}
+:root[saved-theme="dark"] .page .center article .callout { border-radius: 10px; }
+:root[saved-theme="dark"] ::selection { background: rgba(255,143,192,.27); }
+
+/* Infobox: palette only. Keeps your custom image spacing, rounded corners,
+   caption, float and custom separators from grue-infobox. */
+:root[saved-theme="dark"] .grue-infobox {
+  background-color: var(--sf-panel);
+  border-color: var(--sf-line);
+  color: var(--sf-ink);
+}
+:root[saved-theme="dark"] .grue-infobox .gi-section {
+  background-color: #171328;
+  color: var(--sf-muted);
+}
+
+/* Responsive and accessible; no animation is required to get this theme. */
+@media (prefers-reduced-motion: reduce) {
+  :root[saved-theme="dark"] .sidebar.left .explorer a,
+  :root[saved-theme="dark"] .page .center article a { transition: none; }
+}
+
+/* The entire right column is the same deep space as the left one. */
+:root[saved-theme="dark"] .page .sidebar.right {
+  background: linear-gradient(180deg, rgba(11, 10, 24, .96), rgba(8, 8, 19, .94));
+  border-left: 1px solid var(--sf-line);
+}
+
+/* Two restrained panels, not flat gray blocks. */
+:root[saved-theme="dark"] .page .sidebar.right .graph,
+:root[saved-theme="dark"] .page .sidebar.right .toc {
+  box-sizing: border-box;
+  background: linear-gradient(155deg, rgba(21, 16, 39, .96), rgba(12, 11, 26, .95));
+  border: 1px solid rgba(185, 166, 255, .19);
+  border-radius: 12px;
+  box-shadow: inset 0 1px 0 rgba(248, 232, 255, .035), 0 6px 22px rgba(0, 0, 0, .10);
+  padding: .85rem .9rem;
+}
+
+/* Graph title + quiet galactic inset. The renderer uses a transparent
+   canvas, so the background is visible THROUGH its nodes and lines. */
+:root[saved-theme="dark"] .page .sidebar.right .graph > h3 {
+  color: var(--sf-ink);
+  font-size: 1rem;
+  font-weight: 650;
+  letter-spacing: .01em;
+  margin: 0 0 .55rem;
+}
+
+:root[saved-theme="dark"] .page .sidebar.right .graph > .graph-outer {
+  background-color: #090817 !important;
+  background-image:
+    radial-gradient(ellipse 150px 155px at 69% 64%, rgba(130, 79, 169, .22), transparent 76%),
+    radial-gradient(ellipse 145px 130px at 14% 16%, rgba(70, 65, 146, .16), transparent 76%),
+    radial-gradient(1.2px 1.2px at 12% 31%, rgba(255, 235, 248, .65) 50%, transparent 100%),
+    radial-gradient(1px 1px at 84% 19%, rgba(228, 221, 255, .48) 50%, transparent 100%),
+    radial-gradient(1px 1px at 32% 71%, rgba(255, 235, 248, .50) 50%, transparent 100%),
+    radial-gradient(1px 1px at 91% 83%, rgba(222, 197, 255, .45) 50%, transparent 100%);
+  border: 1px solid rgba(186, 151, 239, .20);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: inset 0 0 28px rgba(6, 4, 17, .42);
+}
+
+/* Do NOT give the child a solid background: it would hide the sky.
+   PixiJS draws nodes in a transparent canvas above this layer. */
+:root[saved-theme="dark"] .page .sidebar.right .graph .graph-container,
+:root[saved-theme="dark"] .page .sidebar.right .graph .graph-container canvas {
+  background: transparent !important;
+}
+
+:root[saved-theme="dark"] .page .sidebar.right .graph .global-graph-icon {
+  color: var(--sf-purple);
+  opacity: .8;
+  border-radius: 6px;
+  transition: color .2s ease, opacity .2s ease, background-color .2s ease;
+}
+:root[saved-theme="dark"] .page .sidebar.right .graph .global-graph-icon:hover {
+  color: var(--sf-blush);
+  opacity: 1;
+  background: rgba(201, 162, 255, .13);
+}
+
+/* The expanded, fullscreen Graph View uses the same nebula. */
+:root[saved-theme="dark"] .graph .global-graph-outer {
+  background: rgba(4, 4, 12, .64);
+}
+:root[saved-theme="dark"] .graph .global-graph-container {
+  background-color: var(--sf-void) !important;
+  background-image:
+    radial-gradient(ellipse 47% 57% at 62% 38%, rgba(147, 87, 181, .16), transparent 76%),
+    radial-gradient(ellipse 48% 60% at 13% 80%, rgba(69, 61, 138, .16), transparent 77%);
+  border: 1px solid rgba(185, 166, 255, .23);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, .48);
+}
+:root[saved-theme="dark"] .graph .global-graph-container canvas {
+  background: transparent !important;
+}
+
+/* TOC: softened header, vertical constellation-line and small hover glow. */
+:root[saved-theme="dark"] .page .sidebar.right .toc > button.toc-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: .25rem;
+  color: var(--sf-ink);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid rgba(185, 166, 255, .14);
+  border-radius: 0;
+  padding: 0 0 .65rem;
+}
+:root[saved-theme="dark"] .page .sidebar.right .toc > button.toc-header h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 650;
+}
+:root[saved-theme="dark"] .page .sidebar.right .toc > button.toc-header .fold {
+  margin-left: auto;
+  color: var(--sf-purple);
+}
+
+:root[saved-theme="dark"] .page .sidebar.right .toc ul.toc-content.overflow {
+  box-sizing: border-box;
+  margin: .75rem 0 0;
+  padding: .1rem 0 .15rem .55rem;
+  border-left: 1px solid rgba(185, 166, 255, .22);
+  background: transparent !important;
+}
+:root[saved-theme="dark"] .page .sidebar.right .toc ul.toc-content.overflow > li {
+  margin: .12rem 0;
+}
+:root[saved-theme="dark"] .page .sidebar.right .toc ul.toc-content.overflow > li > a {
+  display: block;
+  padding: .27rem .42rem;
+  border-radius: 6px;
+  color: var(--sf-muted);
+  opacity: .78;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  transition: color .18s ease, opacity .18s ease, background-color .18s ease;
+}
+:root[saved-theme="dark"] .page .sidebar.right .toc ul.toc-content.overflow > li > a:hover,
+:root[saved-theme="dark"] .page .sidebar.right .toc ul.toc-content.overflow > li > a:focus-visible {
+  color: var(--sf-blush);
+  opacity: 1;
+  background: rgba(255, 143, 192, .085);
+}
+:root[saved-theme="dark"] .page .sidebar.right .toc ul.toc-content.overflow > li > a.in-view {
+  color: var(--sf-purple);
+  opacity: 1;
+  background: rgba(201, 162, 255, .075);
+}
+
+/* On smaller viewports we keep the theme, not a rigid sidebar layout. */
+@media (prefers-reduced-motion: reduce) {
+  :root[saved-theme="dark"] .page .sidebar.right .toc ul.toc-content.overflow > li > a,
+  :root[saved-theme="dark"] .page .sidebar.right .graph .global-graph-icon {
+    transition: none;
+  }
+}
+
+:root[saved-theme="dark"] {
+  --sf-body-1: rgba(8, 10, 24, 0.96);
+  --sf-body-2: rgba(12, 14, 34, 0.94);
+  --sf-panel-1: rgba(7, 8, 26, 0.92);
+  --sf-panel-2: rgba(11, 13, 36, 0.90);
+  --sf-line: rgba(120, 92, 255, 0.22);
+  --sf-glow-a: rgba(145, 97, 255, 0.10);
+  --sf-glow-b: rgba(255, 118, 190, 0.06);
+}
+
+:root[saved-theme="dark"] .page > .center {
+  background:
+    radial-gradient(circle at 15% 0%, var(--sf-glow-a), transparent 36%),
+    radial-gradient(circle at 100% 18%, var(--sf-glow-b), transparent 28%),
+    linear-gradient(180deg, var(--sf-body-2), var(--sf-body-1)) !important;
+  border-left: 1px solid var(--sf-line);
+  border-right: 1px solid var(--sf-line);
+}
+
+:root[saved-theme="dark"] .page > .center > article {
+  background: transparent !important;
+}
+
+:root[saved-theme="dark"] .page > .sidebar.left {
+  background:
+    radial-gradient(circle at 20% 0%, rgba(110, 78, 220, 0.08), transparent 32%),
+    linear-gradient(180deg, rgba(7, 9, 28, 0.92), rgba(8, 10, 22, 0.88)) !important;
+  border-right: 1px solid var(--sf-line);
+}
+
+:root[saved-theme="dark"] .sidebar.left .explorer {
+  background:
+    linear-gradient(180deg, rgba(8, 10, 30, 0.88), rgba(10, 12, 26, 0.84)) !important;
+  border: 1px solid rgba(108, 84, 235, 0.16);
+  border-radius: 16px;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.02),
+    0 0 24px rgba(93, 71, 199, 0.08);
+}
+
+:root[saved-theme="dark"] .sidebar.left .explorer-content,
+:root[saved-theme="dark"] .sidebar.left .folder-outer,
+:root[saved-theme="dark"] .sidebar.left .folder-container,
+:root[saved-theme="dark"] .sidebar.left .file-container,
+:root[saved-theme="dark"] .sidebar.left .folder-element,
+:root[saved-theme="dark"] .sidebar.left .folder-outer.open {
+  background: transparent !important;
+}
+
+:root[saved-theme="dark"] .sidebar.left .explorer a {
+  border-radius: 8px;
+}
+
+:root[saved-theme="dark"] .sidebar.left .explorer a:hover {
+  background: rgba(132, 104, 255, 0.10) !important;
+}
+
+:root[saved-theme="dark"] .sidebar.left .explorer .active,
+:root[saved-theme="dark"] .sidebar.left .explorer a.active {
+  background: rgba(150, 110, 255, 0.14) !important;
+  box-shadow: inset 0 0 0 1px rgba(170, 130, 255, 0.18);
+}
+
+/* ===== BUSCADOR, para que combine un poco mejor ===== */
+:root[saved-theme="dark"] .sidebar.left .search,
+:root[saved-theme="dark"] .sidebar.left .search > * {
+  background: transparent !important;
+}
+
+:root[saved-theme="dark"] .sidebar.left .search-button,
+:root[saved-theme="dark"] .sidebar.left input[type="search"] {
+  background: linear-gradient(180deg, rgba(9, 11, 30, 0.95), rgba(8, 10, 24, 0.92)) !important;
+  border: 1px solid rgba(112, 88, 255, 0.24) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 0 16px rgba(93, 71, 199, 0.06);
+}
+
+:root[saved-theme="dark"] .page > #quartz-body > .center {
+  background-color: #090817 !important;
+
+  background-image:
+    radial-gradient(
+      ellipse 65% 45% at 90% 5%,
+      rgba(123, 72, 166, 0.16),
+      transparent 80%
+    ),
+    radial-gradient(
+      ellipse 55% 55% at 5% 90%,
+      rgba(75, 58, 143, 0.10),
+      transparent 80%
+    ),
+    linear-gradient(
+      180deg,
+      #0c0a1a,
+      #090817
+    ) !important;
+}
+
+/* Keep article elements transparent */
+
+:root[saved-theme="dark"] .page > #quartz-body > .center > .page-header,
+:root[saved-theme="dark"] .page > #quartz-body > .center > article {
+  background: transparent !important;
+}
+
+:root[saved-theme="dark"] .sidebar.left .explorer > button.title-button.explorer-toggle {
+  box-sizing: border-box;
+  padding: 12px 14px 8px !important;
+}
+
+
+:root[saved-theme="dark"] body,
+:root[saved-theme="dark"] .page {
+  background-color: #090817 !important;
+}
+
+:root[saved-theme="dark"] .page > #quartz-body {
+  background-color: #090817 !important;
+
+  background-image:
+    radial-gradient(
+      ellipse 65% 45% at 75% 5%,
+      rgba(123, 72, 166, 0.16),
+      transparent 80%
+    ),
+    radial-gradient(
+      ellipse 55% 55% at 5% 90%,
+      rgba(75, 58, 143, 0.10),
+      transparent 80%
+    ),
+    linear-gradient(
+      180deg,
+      #0c0a1a,
+      #090817
+    ) !important;
+}
+
+:root[saved-theme="dark"] .page > #quartz-body > .center {
+  background: transparent !important;
+}
+
+:root[saved-theme="dark"] .page > #quartz-body > footer {
+  background: transparent !important;
+  border-color: rgba(185, 166, 255, 0.14);
+}
+
+@media (min-width: 1200px) {
+  :root[saved-theme="dark"] .page > #quartz-body > .center {
+    border-left: 1px solid rgba(185, 166, 255, 0.12);
+    border-right: 1px solid rgba(185, 166, 255, 0.12);
+  }
+}
+
+article pre:has(> code.mermaid) {
+  background:
+    radial-gradient(
+      ellipse at 85% 0%,
+      rgba(145, 89, 180, 0.12),
+      transparent 65%
+    ),
+    #0b0a18 !important;
+
+  border: 1px solid #302646 !important;
+  border-radius: 14px;
+  padding: 1.25rem;
+}
+
+#mermaid-container #mermaid-space {
+  background: #0b0a18 !important;
+  border: 1px solid #302646;
+  border-radius: 14px;
+}
+
+article pre:has(> code.mermaid) {
+  text-align: center !important;
+}
+
+article pre:has(> code.mermaid) svg,
+article .mermaid svg,
+article pre.mermaid svg {
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  max-width: 100%;
+}
+
+article .mermaid {
+  text-align: center !important;
+}

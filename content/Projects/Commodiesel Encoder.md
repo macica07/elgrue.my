@@ -1,10 +1,18 @@
 ---
 infobox:
   title: Commodiesel Video Encoder
-  fields: []
+  fields:
+    - section: Info
+    - Created by: ElGrue
+    - Written in: Python
+    - First developed in: Nov 2025
   subtitle: GIF, Video and Image converter
+  images:
+    - label: ""
+      image: Assets/Commo test.gif
+      caption: Video test being played in the Commodiesel's screen.
 ---
-<div style="display:flex;align-items:center;gap:10px;
+![[Vertical.svg]]<div style="display:flex;align-items:center;gap:10px;
     margin:10px 5px 5px 5px;
     padding:0; 
     overflow:visible;
@@ -143,7 +151,8 @@ pixels = list(image.getdata())
 Let's imagine this:
 We have an image that's only six pixels:
 
-(Img example)
+![[img example.png]]
+*Example image with only three colors*
 
 Internally, the pixels would look something like this:
 
@@ -152,12 +161,12 @@ Internally, the pixels would look something like this:
 (0, 0, 255)   (255, 0, 0)   (0, 255, 0)
 ```
 
-Later, the encoder converts each RGB color into an index compatible with the Commodiesel's color pallete.
+Later, the encoder converts each RGB color into an index compatible with the Commodiesel's color palette.
 
 For purposes of the example, let's assign these values:
-- Red -> 1
-- Green -> 2
--  Blue -> 3
+- Red = 1
+- Green = 2
+-  Blue = 3
 
 Once the pixels are converted, Python can write their values into a text file.
 That'd look something like this:
@@ -203,16 +212,217 @@ Well, that's what the next part is about!
 
 # Commodiesel Video Encoder - First Generation
 
-The first ever video encoder that I made was this one. And I'm really proud of it! It's been a project that has tought me a lot about both Python and Lua! Anyways, let's get into it!
+The first ever video encoder that I made was this one. And I'm really proud of it! It's been a project that has thought me a lot about both Python and Lua! Anyways, let's get into it!
 
 ## Introduction to the Video Encoder
 
 The First Generation of the Commodiesel Video Encoder was meant to 
 
-It's arhitecture was based on a *relatively* simple principle: convert each fotogram to a compatible representation with the Commodiesel, identify the modified regions and update the existing sprites.
+It's architecture was based on a *relatively* simple principle: convert each photogram to a compatible representation with the Commodiesel, identify the modified regions and update the existing sprites.
 
 >[!tip] Interesting Difference
 >In contrast to the Second Generation, this version directly modified the textures that were being shown in the screen.
 >This had major consequences in the performance...
 
+## Part I - Processing the video
+
+### 1. Decoding the original file
+
+When you select the video file, the encoder detects what file format it is, and uses the corresponding library for each one. (GIF files get processed by Pillow, other video files get processed by OpenCV).
+
+And then the file would get converted into a digital image sequence.
+That would look something like this:
+
+```mermaid
+flowchart TD
+
+    A[Input file
+
+    ] --> B(Decodification)
+
+    B--> D[Photogram 1]
+
+    B--> E[Photogram 2]
+
+    B--> F[Photogram 3]
+```
+
+
+An example in python would be something similar to this:
+
+```python
+# Example
+
+import cv2
+
+capture = cv2.VideoCapture("video.mp4")
+
+success, image = capture.read()
+
+if success:
+    height, width = image.shape[:2]
+    print("Image dimensions:", width, height)
+
+capture.release()
+```
+
+### 2. Reducing the resolution
+
+The first version of the encoder worked with images with a resolution of 100x82 pixels.
+Each photogram needed to adapt to these dimensions before getting converted into compatible colors for the Commodiesel.
+That operation is known as *spatial resizing*. Sounds *fancy*, right?
+Here's an example!
+
+```python
+# Basic image resizing
+
+target = (100, 82)
+
+image = cv2.resize(
+    image,
+    target,
+    interpolation=cv2.INTER_AREA
+)
+```
+
+And that resizing was crucial! Since an HD image has about ***two million pixels***! That's about the population of [Slovenia](https://en.wikipedia.org/wiki/Slovenia)! And with the reduction, the total pixels would be just eighty-two hundred! That's a whopping 99.6% reduction of pixels!
+...Anyways, enough of that. Let's get to the next part.
+
+### 3. Temporal frame sampling
+
+When processing animated GIFs or video files, the encoder needed to determine which frames should be retained.
+
+A conventional video might run at 30 or 60 frames per second, whereas the Commodiesel's default target was *way* lower.
+
+The interval between frames can be calculated using:
+
+$$
+\Delta t=\frac{1}{f}
+$$
+Where $f$ represents the framerate.
+So! For 8 FPS, we'd do this:
+
+$$
+ \Delta t=\frac{1}{8}=0.125\text{ s} 
+ $$
+This means that each output frame represents approximately 125 milliseconds of playback!
+
+
+---
+
+## Part II - Any color you'd like
+
+### 1. Color Quantization
+
+Since the Commodiesel had a limited color palette of 256 colors, and a video can have up to 16.7 million possible colors! We can't just squeeze those in, sadly. So, the encoder had to approximate every single pixel to match the palette.
+
+A general color-distance function can be represented as this:
+
+$$
+E=\alpha(R_1-R_2)^2+\beta(G_1-G_2)^2+\gamma(B_1-B_2)^2
+$$
+
+Where $\alpha$, $\beta$, and $\gamma$ represent weighting coefficients.
+The purpose is to select a palette color that minimizes the difference from the original!
+
+Here's a simplified example:
+
+```python
+# Educational color quantization example
+
+def color_distance(a, b):
+    return sum(
+        (x - y) ** 2
+        for x, y in zip(a, b)
+    )
+
+def nearest_color(pixel, palette):
+    return min(
+        palette,
+        key=lambda candidate:
+            color_distance(pixel, candidate)
+    )
+```
+
+
+---
+
+## Part III - Sprites, sprites, and more sprites
+
+### 6. Detecting differences between frames
+
+Once frames had been resized and converted to palette indices, the encoder compared their contents. The purpose was to identify which graphical regions changed between successive images.
+
+This principle is known as *temporal differential encoding*!
+
+A simplified change mask can be expressed as:
+
+$$
+D_t(x,y)= \begin{cases} 1 & I_t(x,y)\neq I_{t-1}(x,y)\\ 0 & I_t(x,y)=I_{t-1}(x,y) \end{cases}
+$$
+
+*A value of 1 indicates that a pixel has changed, while 0 indicates that it remains unchanged.*
+
+The encoder could avoid storing unnecessary visual updates when consecutive frames were identical.
+
+However, its principal export method operated primarily at the level of complete image strips rather than individual changed pixels.
+
+This distinction had important consequences...
+
+### 7. Vertical strip-based updates
+
+So! The encoder basically, since a single sprite cannot cover the whole screen, it had to separate it into twelve strips which were eight strips wide. The final strip contained the remaining four pixels.
+
+![[Vertical.svg|15000]]
+*Visual representation of the strip system*
+
+And then, if there was a change in a strip, then it'd mark it for updating. It would be something like this: 
+
+~~~
+For each strip:
+
+    Compare its current contents
+    with the previous frame
+
+    If there is difference:
+        Hey! Update this one!
+~~~
+
+This approach could reduce unnecessary updates when large areas remained unchanged.
+However, even a small change inside a strip could require transferring the entire strip again... Which wasn't really good! And inneficient.
+
+>[!info] Why was this inefficient?
+>Because the graphical workload depended not only on how many pixels changed, but also on how widely those changes were distributed.
+>\
+>A single animated object affecting one or two strips could be relatively inexpensive.
+>\
+>However, visual noise, particles, camera movement, or fast animation could modify nearly every strip simultaneously.
+
+## Part IV - Lua Output Generation
+
+### 8. Serializing the visual information
+
+After processing and comparing the frames, Python converted the resulting data into Lua-compatible structures.
+
+This process is called *serialization*.
+
+The first-generation export path primarily used numeric representations of image data.
+A simplified example might look like this:
+
+```lua
+-- Illustrative encoded image
+
+local image = {
+    width = 4,
+    height = 3,
+
+    pixels = {
+        12, 12, 24, 24,
+        12, 48, 48, 24,
+        36, 36, 24, 24
+    }
+}
+
+-- Rendering implementation omitted
+```
 

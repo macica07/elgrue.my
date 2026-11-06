@@ -1,0 +1,315 @@
+/*
+ * Grue.my / Soft Violet v4 — Quartz 5
+ * Static plum reading area, coordinated sidebars, gentle animated background + pointer parallax.
+ * Install at quartz/styles/grue-minimal.scss
+ * Add @use "./grue-minimal.scss"; under the @use lines in custom.scss.
+ * No changes to grue-infobox, YAML, or deployment.
+ */
+
+/* v4.1: Stronger ambient motion, same dark layout; only affects the dark theme. */
+:root[saved-theme="dark"] {
+  --light: #19191f;
+  --lightgray: #35333e;
+  --gray: #9891a6;
+  --darkgray: #d2cdd9;
+  --dark: #f1edf5;
+  --secondary: #b5a0da;
+  --tertiary: #d3baff;
+  --highlight: rgba(174, 144, 217, 0.11);
+  --textHighlight: rgba(165, 125, 222, 0.27);
+  --grue-line: rgba(193, 172, 218, 0.16);
+  --grue-surface: rgba(255, 255, 255, 0.018);
+  --grue-hover: rgba(173, 145, 211, 0.095);
+}
+
+:root[saved-theme="light"] {
+  --grue-line: rgba(82, 68, 111, 0.13);
+  --grue-surface: rgba(118, 98, 150, 0.023);
+  --grue-hover: rgba(118, 98, 150, 0.075);
+}
+
+/* Two separate surfaces: the outer margins are animated, the reading page
+   is a static, gently violet charcoal. The animation never affects text. */
+html[saved-theme="dark"] body {
+  background-color: #191321 !important;
+  background-image:
+    radial-gradient(ellipse 48rem 36rem at 84% 9%, rgba(150, 96, 184, 0.39), transparent 76%),
+    radial-gradient(ellipse 44rem 34rem at 11% 87%, rgba(114, 76, 163, 0.28), transparent 77%),
+    linear-gradient(145deg, #21182a, #191420 52%, #21182a) !important;
+  background-size: 170% 170%, 160% 160%, 100% 100%;
+  background-position: 3% 7%, 97% 92%, center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* The main Quartz page is a separate layer. It stays completely still,
+   so reading and floating infoboxes are never distracted by background motion. */
+html[saved-theme="dark"] .page {
+  background-color: #201c27 !important;
+  background-image: linear-gradient(125deg,
+    #24202d 0%,
+    #211d29 42%,
+    #201c27 72%,
+    #231d2c 100%) !important;
+  box-shadow: 0 0 0 1px rgba(189, 156, 216, 0.07);
+}
+
+/* Some community themes paint another surface over the page; keep these
+   containers transparent so the static plum gradient remains visible. */
+html[saved-theme="dark"] .page > #quartz-body,
+html[saved-theme="dark"] .page .center,
+html[saved-theme="dark"] .page .page-header {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+/* Calm, visible movement of ONLY the outer background; article remains static. */
+@keyframes grue-ambient-drift {
+  0%   { background-position: 3% 7%, 97% 92%, center; }
+  50%  { background-position: 40% 30%, 58% 63%, center; }
+  100% { background-position: 8% 38%, 86% 85%, center; }
+}
+
+@media (min-width: 1100px) and (prefers-reduced-motion: no-preference) {
+  html[saved-theme="dark"] body {
+    animation: grue-ambient-drift 34s ease-in-out infinite alternate;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[saved-theme="dark"] body { animation: none !important; }
+}
+
+/* Preserve the normal Quartz 5 grid and the infobox float. */
+.page .center > article {
+  letter-spacing: 0.004em;
+}
+
+.page .center > article p,
+.page .center > article li {
+  line-height: 1.75;
+}
+
+/* Page headings: readable, with a very small signature accent. */
+.page .center > article h1,
+.page .center > article h2,
+.page .center > article h3 {
+  letter-spacing: -0.018em;
+}
+
+.page .center > article h2 {
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid var(--grue-line);
+}
+
+.page .center > article h2::after {
+  content: "";
+  display: block;
+  width: 2.4rem;
+  height: 2px;
+  margin-top: 0.5rem;
+  border-radius: 5px;
+  background: linear-gradient(90deg, var(--secondary), transparent);
+  opacity: 0.75;
+}
+
+/* Text links and highlighted wikilinks */
+.page .center > article a {
+  transition: color 180ms ease, background-color 180ms ease;
+}
+
+.page .center > article a.internal {
+  border-radius: 5px;
+}
+
+.page .center > article a.internal:hover {
+  background-color: var(--grue-hover);
+}
+
+/* Quote: unobtrusive violet line and faint gradient. */
+.page .center > article blockquote:not(.callout):not(.transclude) {
+  margin: 1.2rem 0;
+  padding: 0.65rem 1rem;
+  border-left: 3px solid var(--secondary);
+  border-radius: 0 9px 9px 0;
+  background: linear-gradient(90deg, var(--grue-hover), transparent 90%);
+}
+
+/* Dark sidebar: just a hairline and a little depth. */
+@media (min-width: 1200px) {
+  :root[saved-theme="dark"] .page .sidebar.left {
+    border-right: 1px solid var(--grue-line);
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.012), transparent 90%);
+  }
+  :root[saved-theme="dark"] .page .sidebar.right {
+    border-left: 1px solid var(--grue-line);
+  }
+}
+
+/* Explorer: quiet hover feedback, no new controls or hierarchy. */
+.sidebar.left .explorer a {
+  border-radius: 7px;
+  transition: color 160ms ease, background-color 160ms ease;
+}
+
+.sidebar.left .explorer a:hover {
+  background-color: var(--grue-hover);
+}
+
+/* Right-side widgets: near-invisible cards. */
+@media (min-width: 1200px) {
+  .sidebar.right .toc,
+  .sidebar.right .graph,
+  .sidebar.right .backlinks {
+    box-sizing: border-box;
+    padding: 0.8rem 0.9rem;
+    border: 1px solid var(--grue-line);
+    border-radius: 12px;
+    background: var(--grue-surface);
+  }
+}
+
+/* Controls and code: refined corners without changing sizes or behavior. */
+.search button,
+.search .search-button,
+.page .center > article pre,
+.page .center > article .callout {
+  border-radius: 10px;
+}
+
+.page .center > article pre,
+.page .center > article .callout:not([data-callout^="figure-"]) {
+  border-color: var(--grue-line);
+}
+
+/* Keep subtle hover transitions, but avoid animating the article itself.
+   The outer background is the only continuously animated element. */
+@media (prefers-reduced-motion: reduce) {
+  .page .center > article a,
+  .sidebar.left .explorer a {
+    transition: none !important;
+  }
+}
+
+@media (max-width: 1199px) {
+  .page .sidebar.left,
+  .page .sidebar.right {
+    border: 0;
+  }
+}
+
+
+/* =========================================================
+   v4: UNIFY EXPLORER, SEARCH, GRAPH, TOC AND SIDE PANELS
+   Scope is dark mode: light theme remains Quartz's own.
+   ========================================================= */
+html[saved-theme="dark"] .page .sidebar.left,
+html[saved-theme="dark"] .page .sidebar.right {
+  background-color: #211b2b !important;
+  background-image: linear-gradient(165deg,
+    rgba(78, 53, 102, 0.16) 0%,
+    rgba(31, 25, 42, 0.15) 55%,
+    rgba(23, 21, 32, 0.10) 100%) !important;
+}
+
+/* Mobile drawer must remain opaque to keep links readable. */
+@media (max-width: 800px) {
+  html[saved-theme="dark"] .page > #quartz-body .sidebar.left:has(.explorer),
+  html[saved-theme="dark"] .page .sidebar.left .explorer-content {
+    background-color: #211b2b !important;
+  }
+}
+
+/* The folder panel should look like the same surface, not a separate grey box. */
+html[saved-theme="dark"] .sidebar.left .explorer-content,
+html[saved-theme="dark"] .sidebar.left .explorer-content ul,
+html[saved-theme="dark"] .sidebar.left .explorer-content .folder-outer,
+html[saved-theme="dark"] .sidebar.left .explorer-content .explorer-ul {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+html[saved-theme="dark"] .sidebar.left .explorer-content a.active {
+  border-radius: 7px;
+  color: #d5baff;
+  background: rgba(183, 146, 228, 0.14) !important;
+}
+html[saved-theme="dark"] .sidebar.left .explorer-content a:hover {
+  border-radius: 7px;
+  background: rgba(172, 134, 214, 0.10) !important;
+}
+
+/* Quartz Search component: button and popup have independent backgrounds. */
+html[saved-theme="dark"] .search > .search-button {
+  background-color: #292335 !important;
+  background-image: linear-gradient(110deg, #2c2538, #272231) !important;
+  border: 1px solid rgba(191, 160, 226, 0.19) !important;
+  border-radius: 9px;
+  transition: background-color 180ms ease, border-color 180ms ease;
+}
+html[saved-theme="dark"] .search > .search-button:hover {
+  border-color: rgba(191, 160, 226, 0.38) !important;
+}
+html[saved-theme="dark"] .search > .search-container > .search-space > *:not(.ghost-text):not(.tag-suggestions),
+html[saved-theme="dark"] .search > .search-container > .search-space > .tag-suggestions {
+  background: #292334 !important;
+  border-color: rgba(191, 160, 226, 0.19) !important;
+}
+
+/* Right column: a soft plum surface instead of hard #282828 cards. */
+html[saved-theme="dark"] .sidebar.right .graph,
+html[saved-theme="dark"] .sidebar.right .toc,
+html[saved-theme="dark"] .sidebar.right .backlinks {
+  background: linear-gradient(160deg, rgba(67, 49, 81, 0.26), rgba(32, 27, 43, 0.58)) !important;
+  border: 1px solid rgba(190, 160, 219, 0.18) !important;
+  border-radius: 12px;
+}
+html[saved-theme="dark"] .sidebar.right .graph > .graph-outer,
+html[saved-theme="dark"] .sidebar.right .graph .graph-container {
+  background-color: rgba(18, 15, 27, 0.23) !important;
+  border-color: rgba(190, 160, 219, 0.12) !important;
+  border-radius: 9px;
+}
+
+/* =========================================================
+   v4: POINTER PARALLAX *ONLY* IN OUTER BACKGROUND MARGINS
+   The slow automatic drift from v3 stays in place on body.
+   To activate mouse reaction, add the small JS snippet to
+   Grue Infobox's existing afterDOMLoaded script (see README).
+   ========================================================= */
+html[saved-theme="dark"] body::before {
+  content: "";
+  position: fixed;
+  inset: -38px;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(ellipse 42rem 30rem at 89% 14%, rgba(175, 117, 218, 0.24), transparent 73%),
+    radial-gradient(ellipse 40rem 27rem at 9% 83%, rgba(126, 93, 176, 0.18), transparent 78%);
+  background-repeat: no-repeat;
+  transform: translate3d(var(--grue-shift-x, 0px), var(--grue-shift-y, 0px), 0);
+  transition: transform 1100ms cubic-bezier(0.18, 0.7, 0.25, 1);
+  will-change: transform;
+}
+
+/* Keep the pointer halo behind the full Quartz page. */
+html[saved-theme="dark"] .page {
+  position: relative;
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[saved-theme="dark"] body::before {
+    transform: none !important;
+    transition: none !important;
+    will-change: auto;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  html[saved-theme="dark"] body::before {
+    transform: none !important;
+    transition: none !important;
+    will-change: auto;
+  }
+}
