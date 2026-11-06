@@ -373,9 +373,6 @@ This distinction had important consequences...
 
 So! The encoder basically, since a single sprite cannot cover the whole screen, it had to separate it into twelve strips which were eight strips wide. The final strip contained the remaining four pixels.
 
-![[Vertical.svg|15000]]
-*Visual representation of the strip system*
-
 And then, if there was a change in a strip, then it'd mark it for updating. It would be something like this: 
 
 ~~~
@@ -385,7 +382,7 @@ For each strip:
     with the previous frame
 
     If there is difference:
-        Hey! Update this one!
+        Update this one!
 ~~~
 
 This approach could reduce unnecessary updates when large areas remained unchanged.
