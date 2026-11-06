@@ -12,7 +12,7 @@ infobox:
       image: Assets/Commo test.gif
       caption: Video test being played in the Commodiesel's screen.
 ---
-![[Vertical.svg]]<div style="display:flex;align-items:center;gap:10px;
+<div style="display:flex;align-items:center;gap:10px;
     margin:10px 5px 5px 5px;
     padding:0; 
     overflow:visible;

@@ -471,3 +471,24 @@ article pre.mermaid svg {
 article .mermaid {
   text-align: center !important;
 }
+
+:root[saved-theme="dark"]
+.sidebar.left .explorer-content
+> .explorer-ul > li
+> .folder-container {
+  box-sizing: border-box;
+  padding-left: 14px !important;
+  padding-right: 10px;
+}
+
+/* Maintain the spacing between arrow and title */
+:root[saved-theme="dark"]
+.sidebar.left .folder-container {
+  column-gap: 8px;
+}
+
+/* Preserve normal spacing for nested folders */
+:root[saved-theme="dark"]
+.sidebar.left .folder-outer .folder-container {
+  padding-left: 0;
+}
