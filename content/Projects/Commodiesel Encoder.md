@@ -216,7 +216,7 @@ The first ever video encoder that I made was this one. And I'm really proud of i
 
 ## Introduction to the Video Encoder
 
-The First Generation of the Commodiesel Video Encoder was meant to 
+The First Generation of the Commodiesel Video Encoder was meant to take in video files or GIF files, and convert them into readable text for the Commodiesel 75.
 
 It's architecture was based on a *relatively* simple principle: convert each photogram to a compatible representation with the Commodiesel, identify the modified regions and update the existing sprites.
 
