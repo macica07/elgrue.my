@@ -84,7 +84,7 @@ My first approach was simple. Make a Python program that analized an inputed ima
 
 It was to be expected for my first encoder to have many troubles. And *oh, boy* did this one have troubles...
 
-The first and most notable (and, honestly, the most hilarious one) was that the way that I used to read colors from the image was **so** messed up... I somehow made it have the colors all messed up!
+The first and most notable (and, honestly, the most hilarious one) was that the way that I used to read colors from the image was **so** messed up... I somehow made it detect the wrong colors!
 
 ![[Captura_de_pantalla_2025-12-05_165247.png]]
 *Ralsei looking really sad, and really bad on the first versions of the encoder.*
@@ -166,7 +166,7 @@ Later, the encoder converts each RGB color into an index compatible with the Com
 For purposes of the example, let's assign these values:
 - Red = 1
 - Green = 2
--  Blue = 3
+- Blue = 3
 
 Once the pixels are converted, Python can write their values into a text file.
 That'd look something like this:
@@ -286,7 +286,6 @@ image = cv2.resize(
 ```
 
 And that resizing was crucial! Since an HD image has about ***two million pixels***! That's about the population of [Slovenia](https://en.wikipedia.org/wiki/Slovenia)! And with the reduction, the total pixels would be just eighty-two hundred! That's a whopping 99.6% reduction of pixels!
-...Anyways, enough of that. Let's get to the next part.
 
 ### 3. Temporal frame sampling
 
@@ -314,7 +313,7 @@ This means that each output frame represents approximately 125 milliseconds of p
 
 ### 1. Color Quantization
 
-Since the Commodiesel had a limited color palette of 256 colors, and a video can have up to 16.7 million possible colors! We can't just squeeze those in, sadly. So, the encoder had to approximate every single pixel to match the palette.
+Since the Commodiesel had a limited color palette of 256 colors, and a video can have up to 16.7 million possible colors, we can't just squeeze those in... So, the encoder had to approximate every single pixel to match the palette.
 
 A general color-distance function can be represented as this:
 
@@ -328,7 +327,7 @@ The purpose is to select a palette color that minimizes the difference from the 
 Here's a simplified example:
 
 ```python
-# Educational color quantization example
+# Simple color quantization example
 
 def color_distance(a, b):
     return sum(
@@ -351,7 +350,7 @@ def nearest_color(pixel, palette):
 
 ### 6. Detecting differences between frames
 
-Once frames had been resized and converted to palette indices, the encoder compared their contents. The purpose was to identify which graphical regions changed between successive images.
+Once frames had been resized and converted to palette indexes, the encoder compared their contents. The purpose was to identify which graphical regions changed between successive images.
 
 This principle is known as *temporal differential encoding*!
 
@@ -373,7 +372,7 @@ This distinction had important consequences...
 
 So! The encoder basically, since a single sprite cannot cover the whole screen, it had to separate it into twelve strips which were eight strips wide. The final strip contained the remaining four pixels.
 
-And then, if there was a change in a strip, then it'd mark it for updating. It would be something like this: 
+And then, if there was a change in a strip, it'd mark it for updating. It would be something like this: 
 
 ~~~
 For each strip:

@@ -10,7 +10,7 @@ infobox:
   images:
     - label: ""
       image: Assets/Captura de pantalla 2026-04-08 222149.png
-      caption: TsuruTuneadorumrum trying (and misserably failing) to activate God mode in CRDG.
+      caption: TsuruTuneadorumrum trying (and failing) to activate God mode in CRDG.
   subtitle: Asgoregaming!
 ---
 
