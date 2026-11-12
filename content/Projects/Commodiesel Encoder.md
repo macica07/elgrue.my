@@ -394,6 +394,8 @@ However, even a small change inside a strip could require transferring the entir
 >\
 >However, visual noise, particles, camera movement, or fast animation could modify nearly every strip simultaneously.
 
+---
+
 ## Part IV - Lua Output Generation
 
 ### 8. Serializing the visual information
@@ -419,6 +421,40 @@ local image = {
     }
 }
 
--- Rendering implementation omitted
+-- Rendering omitted
 ```
+
+Each number represents a color index assigned from the Commodiesel's palette rather than a complete RGB value.
+
+For example, the number `48` could represent a particular shade of blue, depending on the palette.
+The Lua program would then read those values and use them to display the corresponding image.
+
+Pretty simple in theory, right? ...Well, there's a small problem.
+Numbers stored as text aren't particularly space efficient.
+
+For example, the number `255` needs three characters. Add commas, brackets, spaces, and thousands of pixels, and the file can become surprisingly large!
+
+Let's imagine that an image contains 8,200 pixels and each pixel requires an average of four characters, including its separator.
+
+We can estimate its size using:
+
+$$
+S\approx8200\times4=32\,800
+$$
+
+That's approximately 32,800 characters for just one image! That's about the days you'd live if you had a 90 year old life! (specifically, 89.8 years equals 32,800 days)
+
+And we're not even including the Lua instructions or other information needed for playback.
+Now imagine doing that hundreds or thousands of times.
+...Yeah. The output could get pretty ridiculous.
+
+>[!note]
+>This is just an illustrative calculation... The actual output size depended on the image content and how the data was organized.
+
+### 9. Original limitation: Large output files
+
+The first encoder already had some *really experimental* compression-related functions, but its main export method didn't take full advantage of them. (My code was already working by miracle, It was to be expected that it wouldn't really work.)
+
+As a result, many animations generated considerably larger Lua files than necessary.
+This became one of the main areas I improved in later versions!
 
