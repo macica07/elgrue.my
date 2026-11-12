@@ -451,6 +451,7 @@ Now imagine doing that hundreds or thousands of times.
 >[!note]
 >This is just an illustrative calculation... The actual output size depended on the image content and how the data was organized.
 
+
 ### 9. Original limitation: Large output files
 
 The first encoder already had some *really experimental* compression-related functions, but its main export method didn't take full advantage of them. (My code was already working by miracle, It was to be expected that it wouldn't really work.)
@@ -458,3 +459,22 @@ The first encoder already had some *really experimental* compression-related fun
 As a result, many animations generated considerably larger Lua files than necessary.
 This became one of the main areas I improved in later versions!
 
+
+### 9. Slice, slice, the video looks nice!
+
+Eventually, I ran into another problem... Sometimes the generated Lua file was simply too large for Roblox! Pasting it into the Commodiesel would already take a while, and trying to save the file would kick you out of the game!
+
+So I made it so the encoder could divide the output into smaller files, which I decided to call *chunks*.
+
+Instead of storing everything in one enormous file, the program could organize the information into several smaller modules.
+
+
+
+The original encoder used a configurable chunk-size target, initially around 3,000,000 characters.
+This made large animations easier to organize and load.
+
+However, there was an important catch...
+
+Splitting a file into smaller pieces doesn't necessarily make the video faster, or better. The Commodiesel still needs to read and process the information.
+
+It's a bit like splitting a massive book into ten smaller books. They're easier to carry individually, but you still have the same amount of reading to do. And loading another chunk during playback could sometimes introduce additional delays.
