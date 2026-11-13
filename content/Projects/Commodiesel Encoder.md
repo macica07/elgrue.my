@@ -460,7 +460,7 @@ As a result, many animations generated considerably larger Lua files than necess
 This became one of the main areas I improved in later versions!
 
 
-### 9. Slice, slice, the video looks nice!
+### Slice, slice, the video looks nice!
 
 Eventually, I ran into another problem... Sometimes the generated Lua file was simply too large for Roblox! Pasting it into the Commodiesel would already take a while, and trying to save the file would kick you out of the game!
 
@@ -480,3 +480,101 @@ However, there was an important catch...
 Splitting a file into smaller pieces doesn't necessarily make the video faster, or better. The Commodiesel still needs to read and process the information.
 
 It's a bit like splitting a massive book into ten smaller books. They're easier to carry individually, but you still have the same amount of reading to do. And loading another chunk during playback could sometimes introduce additional delays.
+
+---
+
+## Part V - Displaying the Image
+
+### 10. OK, but, how does it display it?!
+
+Now we've reached the interesting part! 
+
+Python has finished processing the image, converting its colors, and generating the Lua output. But a table full of numbers isn't exactly a picture, right..? We need something that can interpret those numbers and display them...! That's where the Commodiesel's graphics system comes in.
+
+The first encoder used two important concepts:
+
+- **Textures**: Textures are graphical resources that store pixel information.
+
+- **Sprites**: Sprites are used to position and display those textures on the screen.
+
+You can think of a texture as a small digital picture, and a sprite as the object responsible for showing that picture somewhere on the display.
+
+A *very* simplified version of the rendering process would look like something like this:
+
+```
+Initialize graphics
+
+Create image resources
+Load pixel information
+Display the image
+
+For each new frame:
+    Update the necessary regions
+```
+
+>[!warning]
+>This is just a very very simplified example, the real thing is a bit harder...!
+
+### An important optimization
+
+The first encoder didn't recreate every graphical object for every single frame. Because that'd literally fry the Commodiesel... Instead, it reused existing textures and updated their contents.
+That was already a pretty useful optimization!
+
+Recreating everything repeatedly would have introduced additional processing and memory-management overhead.
+
+Unfortunately, reusing textures introduced another problem because of **how those textures were being updated**.
+
+### 11. OK, but, why does it do that ugly scan effect? Ew! Take it away! Hey! No! It's ugly I don't wanna see it!! Turn it off!
+
+This was probably the most noticeable problem in the original encoder...
+Sometimes, instead of seeing a clean transition between two images, you could watch the next frame appear in sections.
+
+![[killer gif.gif|500]]
+*GIF of the UGLY past versions of the Image Encoder.*
+
+It looked almost as if the picture was being scanned or painted across the display.
+...But why?!
+
+Because the original renderer updated textures **while they were still visible**.
+
+Imagine you're drawing a picture on a whiteboard, and you want to replace it with another picture, but you can't instantly erase everything and redraw it, right? You're not Superman!
+
+So you update one section at a time. Someone watching you will see parts of the new picture mixed with parts of the previous one. ...That's essentially what happened. 
+
+The problem is called **non-atomic frame presentation**.
+
+That's a very very fancy way of saying that the entire image doesn't change at exactly the same moment. 
+
+Mathematically, we can describe the visible image during an update as:
+
+$$
+I_{\text{visible}}(t)= \begin{cases} I_{\text{new}} & \text{Updated regions}\\ I_{\text{old}} & \text{Pending regions} \end{cases}
+$$
+
+In other words, some regions show the next frame while others still show the previous one. and that's why those strange scanning effects appeared.
+
+### 12. OK, Nerd! But why couldn't it update everythin' instantly?
+
+Uh, well, because the Commodiesel has its own processing and graphical limitations...
+
+According to its documented graphical update budget, the system can process approximately **2,048 pixel updates per processing frame**.
+
+Now remember that our image contains 8,200 pixels. So, if we divide the image size by the graphical update budget:
+
+$$
+\frac{8200}{2048}\approx4.004
+$$
+
+That means a complete image update would theoretically require **at least five processing intervals**!
+
+If those intervals occurred at 60 Hz:
+
+$$
+T=\frac{5}{60}\approx0.0833\text{ s}
+$$
+
+That's around **83 milliseconds** just to span those intervals!? And that's before considering other processing costs...
+
+Of course, this is a *theoretical* estimate, not an exact benchmark of the Commodiesel's rendering speed. Still, it helps explain why large graphical changes could take a noticeable amount of time.
+
+A mostly static image might work pretty well. But if the entire screen changes constantly? Well, the computer suddenly has a lot more work to do.
