@@ -1,11 +1,23 @@
 {
   "version": "1.0.0",
   "plugins": {
+    "explorer": {
+      "source": "github:quartz-community/explorer",
+      "resolved": "https://github.com/quartz-community/explorer.git",
+      "commit": "6f74926e4118a3714a56a683d8ae370cd185db3d",
+      "installedAt": "2026-11-13T03:24:08.631Z"
+    },
     "grue-infobox": {
       "source": "./plugins/grue-infobox",
       "resolved": "C:\\Users\\USER\\Documents\\GitHub\\elgrue.my\\plugins\\grue-infobox",
       "commit": "local",
       "installedAt": "2026-11-04T10:34:18.600Z"
+    },
+    "obsidian-plugin-excalidraw": {
+      "source": "github:quartz-community/obsidian-plugin-excalidraw",
+      "resolved": "https://github.com/quartz-community/obsidian-plugin-excalidraw.git",
+      "commit": "56de4bba10e1ce9d30526b382790a6071c69b7ef",
+      "installedAt": "2026-11-13T02:25:24.902Z"
     }
   }
 }

@@ -41,7 +41,7 @@ configuration:
         highlight: rgba(143, 159, 169, 0.15)
         textHighlight: "#b3aa0288"
 plugins:
-  - source: "./plugins/grue-infobox"
+  - source: ./plugins/grue-infobox
     enabled: true
     layout:
       position: beforeBody
@@ -237,7 +237,6 @@ plugins:
       links:
         GitHub: https://github.com/macica07/elgrue.my
         Youtube: https://www.youtube.com/@ElGrue
-        
     layout:
       position: footer
       priority: 50
@@ -273,6 +272,13 @@ plugins:
       priority: 15
       display: all
   - source: "@quartz-community/obsidian-plugin-excalidraw"
+    enabled: true
+    options:
+      enableInteraction: true
+      darkMode: auto
+      exportPadding: 20
+    order: 50
+  - source: github:quartz-community/obsidian-plugin-excalidraw
     enabled: true
     options:
       enableInteraction: true

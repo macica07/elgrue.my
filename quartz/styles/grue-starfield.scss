@@ -492,3 +492,121 @@ article .mermaid {
 .sidebar.left .folder-outer .folder-container {
   padding-left: 0;
 }
+
+.grue-excalidraw {
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+
+  border: 1px solid rgba(180, 130, 255, 0.35);
+  border-radius: 14px;
+
+  background: transparent;
+}
+
+.grue-excalidraw iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.grue-excalidraw-open {
+  display: block;
+  margin-top: 8px;
+  text-align: right;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 600px) {
+  .grue-excalidraw {
+    height: 350px;
+  }
+}
+
+[data-frame="excalidraw"] .excalidraw-sidebar-toggle {
+  display: none !important;
+}
+
+[data-frame="excalidraw"] .excalidraw-sidebar {
+  display: none !important;
+}
+
+
+/* ==========================================
+   GRUE MIND — INTERACTIVE EXCALIDRAW
+   ========================================== */
+
+.grue-excalidraw {
+  width: 100%;
+  max-width: 100%;
+  height: 480px;
+  margin: 1.5rem auto;
+
+  overflow: hidden;
+  box-sizing: border-box;
+
+  border: 1px solid rgba(180, 130, 255, 0.35);
+  border-radius: 16px;
+
+  background: transparent;
+}
+
+.grue-excalidraw iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Hide the sidebar ONLY inside embedded pages */
+
+html.grue-embedded-page
+[data-frame="excalidraw"]
+.excalidraw-sidebar-toggle {
+  display: none !important;
+}
+
+html.grue-embedded-page
+[data-frame="excalidraw"]
+.excalidraw-sidebar {
+  display: none !important;
+}
+
+/* Responsive display */
+
+@media (max-width: 600px) {
+  .grue-excalidraw {
+    max-width: 100%;
+  }
+}
+
+@font-face {
+  font-family: "Virgil";
+  src:
+    url("/assets/fonts/Virgil.woff2") format("woff2"),
+    url("/elgrue.my/assets/fonts/Virgil.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Apply only to Excalidraw text */
+
+[data-frame="excalidraw"] svg text {
+  font-family: "Virgil", cursive !important;
+}
+
+[data-frame="excalidraw"] svg text,
+[data-frame="excalidraw"] svg tspan {
+  fill: #000000 !important;
+  color: #000000 !important;
+}
+
+html[saved-theme="dark"]
+[data-frame="excalidraw"] svg text,
+html[saved-theme="dark"]
+[data-frame="excalidraw"] svg tspan {
+  fill: #D3D3D3 !important;
+  color: #D3D3D3 !important;
+}

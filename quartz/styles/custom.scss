@@ -1,4 +1,15 @@
 // @use "./grue-minimal-v4-1.scss" as *;
 @use "./grue-starfield.scss" as *;
 
-// put your custom CSS here!
+
+
+html[saved-theme="light"]
+[data-frame="excalidraw"] svg path {
+  stroke: #1e1e1e !important;
+}
+
+
+html[saved-theme="dark"]
+[data-frame="excalidraw"] svg path {
+  stroke: #dddddd !important;
+}

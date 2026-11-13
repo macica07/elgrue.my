@@ -469,6 +469,8 @@ So I made it so the encoder could divide the output into smaller files, which I 
 Instead of storing everything in one enormous file, the program could organize the information into several smaller modules.
 
 
+![[Test.excalidraw|600]]
+
 
 The original encoder used a configurable chunk-size target, initially around 3,000,000 characters.
 This made large animations easier to organize and load.
