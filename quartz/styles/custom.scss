@@ -1,15 +1,25 @@
-// @use "./grue-minimal-v4-1.scss" as *;
 @use "./grue-starfield.scss" as *;
 
 
+@font-face {
+  font-family: "GrueVirgil";
+  src: url("./assets/fonts/Virgil.woff2") format("woff2");
 
-html[saved-theme="light"]
-[data-frame="excalidraw"] svg path {
-  stroke: #1e1e1e !important;
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
+[data-frame="excalidraw"] .excalidraw-stage svg text {
+  font-family: "GrueVirgil", sans-serif !important;
+}
 
-html[saved-theme="dark"]
-[data-frame="excalidraw"] svg path {
-  stroke: #dddddd !important;
+html body .katex .katex-html {
+  font-family: KaTeX_Main, "Times New Roman", serif !important;
+}
+
+/* Preserve mathematical variable typography */
+html body .katex .katex-html .mathnormal {
+  font-family: KaTeX_Math, serif !important;
+  font-style: italic;
 }
