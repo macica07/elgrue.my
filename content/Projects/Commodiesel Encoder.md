@@ -530,7 +530,7 @@ This was probably the most noticeable problem in the original encoder...
 Sometimes, instead of seeing a clean transition between two images, you could watch the next frame appear in sections.
 
 ![[killer gif.gif|500]]
-*GIF of the UGLY past versions of the Image Encoder.*
+*GIF of the UGLY past versions of the Image Encoder. It's not you, it really was that slow.*
 
 It looked almost as if the picture was being scanned or painted across the display.
 ...But why?!
@@ -578,3 +578,140 @@ That's around **83 milliseconds** just to span those intervals!? And that's befo
 Of course, this is a *theoretical* estimate, not an exact benchmark of the Commodiesel's rendering speed. Still, it helps explain why large graphical changes could take a noticeable amount of time.
 
 A mostly static image might work pretty well. But if the entire screen changes constantly? Well, the computer suddenly has a lot more work to do.
+
+## Part VI - C'mon, do something!
+
+### 13. Why was the video soooooo agonizingly slow!?
+
+Another important limitation was how the original player handled time. The basic idea was to update the image and then wait for the duration of the frame. At 8 FPS, each frame should last approximately 125 milliseconds.
+
+A simplified playback loop might look like:
+
+```
+Update image
+Wait 125 milliseconds
+
+Update next image
+Wait 125 milliseconds
+
+Repeat
+```
+
+Sounds perfectly reasonable. ...Right? Except there's something we're forgetting.
+
+**Updating an image takes time too!**
+
+Let's imagine the Commodiesel spends 35 milliseconds processing an image update. Then, after processing it, the program waits another 125 milliseconds.
+
+The actual time between updates could become:
+
+$$
+T_{\text{actual}}=T_{\text{processing}}+T_{\text{wait}} \\
+
+T_{\text{actual}}=35+125=160\text{ ms}
+$$
+
+So what happens to our 8 FPS?
+
+$$
+{\text{FPS}}_{\text{actual}}=\frac{1000}{160}=6.25
+$$
+
+The video is running at 6.25 FPS! ...Wait what? Where'd the 1.75 FPS go? Hello!? Jeez...
+
+## 14. Accumulated timing errors
+
+There's another problem with this kind of timing. Small delays can accumulate over time. 
+
+Imagine that every frame introduces an extra 20 milliseconds of delay. One frame? Barely noticeable! Ten frames? That's uh... 200 milliseconds...
+
+...One hundred frames?
+
+$$
+E=100\times20=2000\text{ ms}
+$$
+
+What!? **TWO** seconds of accumulated delay!
+
+A simple approximation for this effect is:
+
+$$
+E_n\approx n e
+$$
+
+
+Where \(n\) is the number of frames and \(e\) is the additional delay per frame.
+
+This is why long animations could gradually fall behind their intended playback speed. Later generations introduced more careful timing management to reduce this problem.
+
+And no.... Simply asking the Commodiesel to run at a higher FPS doesn't magically make it faster. If the computer needs more time to process a frame than the time available, it can't keep up.
+
+
+## Part VII — The Original Limitations
+
+Looking back, my first encoder had several important weaknesses...
+
+- **Screen tearing and scanning effects**
+The renderer updated textures while they were visible, sometimes displaying parts of two different frames simultaneously.
+
+- **Slow and inconsistent playback**
+Graphical processing took additional time, and the player's relative delays could make the animation run slower than intended.
+
+- **Very large Lua files**
+Numeric data representations and complete-strip updates could consume a considerable number of characters.
+
+- **Inefficient updates for small changes**
+Even a tiny modification inside a strip could require transferring the entire graphical region again.
+
+- **High memory usage during conversion**
+Processing long videos could require a substantial amount of system memory, especially when many decoded frames were kept for later processing.
+
+- **Performance depended heavily on the video**
+Static scenes were generally easier to handle than videos containing fast movement, visual noise, particles, or frequent scene changes.
+
+But here's the important thing.
+
+These weren't necessarily signs that the original encoder was badly designed. (At least that's what I tell myself to feel better.)
+
+I was trying to reproduce animated video on a virtual computer with extremely limited graphical resources! ...It wasn't exactly built to be a video player.
+
+And despite all those limitations, the encoder actually worked! (Miraculously). I That's pretty impressive for something that originally started as an image conversion "experiment".
+
+![[konata-konata-izumi.gif]]
+
+## What'd we learn?
+
+The first-generation Commodiesel GIF Encoder was, above all, a proof of concept.
+
+It started with a simple question:
+
+<div style="display:flex;align-items:center;margin:1em 0;">
+  <div style="color:#b2b7f2;font-size:3.3em;font-family:serif;font-weight:bold;line-height:.8;padding:4px 6px;">“</div>
+  <blockquote style="margin:0;font-style:italic;flex:1;text-align:center;background:none;border:none;padding:0;">
+	Could we convert an image into Lua and display it on the Commodiesel?
+  </blockquote>
+  <div style="color:#b2b7f2;font-size:3.3em;font-family:serif;font-weight:bold;line-height:.8;padding:4px 6px;">„</div>
+</div>
+
+Eventually, that experiment grew into a program capable of processing animated GIFs and conventional videos!
+
+The encoder already used some pretty interesting techniques, including color quantization, lookup tables, GPU-assisted processing, frame comparison, and graphical resource reuse.
+
+..But it also had some obvious problems. Screen tearing made some animations look strange. Graphical updates could take too long. Lua output files could become *enormous*. And videos with lots of movement could push the Commodiesel beyond what it could comfortably handle.
+
+These limitations eventually led to the development of more efficient versions.
+
+Instead of replacing the entire idea, I kept improving the parts that weren't working particularly well.
+
+The first version of encoder answered one question: "Can we play a video on the Commodiesel?"
+
+The new encoder answered another: "Okay, but can we make it actually good?"
+
+And that's probably what makes this project so interesting.
+
+What started as a relatively simple image-to-Lua conversion experiment eventually became a specialized video encoding and playback system designed around the limitations of a virtual computer!
+
+All of this, just to put Markiplier, Bad Apple, or any other silly video on a computer inside a Roblox game about riding a cart around a 75 kW diesel generator...?
+
+Honestly, we *(I)* might've got a bit carried away...
+
