@@ -579,6 +579,10 @@ Of course, this is a *theoretical* estimate, not an exact benchmark of the Commo
 
 A mostly static image might work pretty well. But if the entire screen changes constantly? Well, the computer suddenly has a lot more work to do.
 
+
+---
+
+
 ## Part VI - C'mon, do something!
 
 ### 13. Why was the video soooooo agonizingly slow!?
@@ -645,6 +649,9 @@ Where \(n\) is the number of frames and \(e\) is the additional delay per frame.
 This is why long animations could gradually fall behind their intended playback speed. Later generations introduced more careful timing management to reduce this problem.
 
 And no.... Simply asking the Commodiesel to run at a higher FPS doesn't magically make it faster. If the computer needs more time to process a frame than the time available, it can't keep up.
+
+
+---
 
 
 ## Part VII — The Original Limitations
